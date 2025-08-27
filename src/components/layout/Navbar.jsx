@@ -67,9 +67,7 @@ const Navbar = () => {
               <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">U</span>
               </div>
-              <span className="ml-3 text-xl font-bold">
-                UNI360
-              </span>
+              <span className="ml-3 text-xl font-bold">UNI360</span>
             </div>
           </div>
 
