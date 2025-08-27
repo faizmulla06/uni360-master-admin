@@ -56,20 +56,7 @@ const Sidebar = () => {
       <motion.div
         animate={{ width: sidebarOpen ? 256 : 64 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white border-r border-gray-200 z-50 overflow-hidden">
-        {/* Toggle Button */}
-        <div className="p-4 border-b border-gray-200">
-          <button
-            onClick={toggleSidebarOpen}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-            {sidebarOpen ? (
-              <XMarkIcon className="h-6 w-6 text-gray-600" />
-            ) : (
-              <Bars3Icon className="h-6 w-6 text-gray-600" />
-            )}
-          </button>
-        </div>
-
+        className="fixed left-0 top-16 h-[calc(100vh-4rem)] bg-gray-700 border-r border-gray-600 z-50 overflow-hidden shadow-lg">
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-4">
           <div className="space-y-1 px-3">

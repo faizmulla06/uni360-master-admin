@@ -58,7 +58,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">
+    <nav className="fixed top-0 left-0 right-0 bg-[#374151] border-b border-gray-200 z-50 h-16 text-white">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Left side - Logo */}
@@ -67,7 +67,7 @@ const Navbar = () => {
               <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">U</span>
               </div>
-              <span className="ml-3 text-xl font-bold text-gray-900">
+              <span className="ml-3 text-xl font-bold">
                 UNI360
               </span>
             </div>
@@ -77,10 +77,10 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             {/* Country Toggle */}
             <div className="flex items-center">
-              <span className="text-sm text-gray-600 mr-2">Country:</span>
+              <span className="text-sm  mr-2">Country:</span>
               <button
                 onClick={handleCountryToggle}
-                className="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
+                className="relative inline-flex h-6 w-11 items-center rounded-full bg-primary-500 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
                 <span className="sr-only">Toggle country</span>
                 <span
                   className={`${
@@ -90,7 +90,7 @@ const Navbar = () => {
                   } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                 />
               </button>
-              <span className="ml-2 text-sm font-medium text-gray-900">
+              <span className="ml-2 text-sm font-medium">
                 {selectedCountry === "Germany" ? "🇩🇪 DE" : "🇬🇧 UK"}
               </span>
             </div>
@@ -160,7 +160,7 @@ const Navbar = () => {
             <div className="relative" ref={profileRef}>
               <button
                 onClick={() => dispatch(toggleProfileMenu())}
-                className="flex items-center space-x-2 p-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                className="flex items-center space-x-2 p-2 text-white hover:text-gray-100 rounded-lg transition-colors">
                 {user?.avatar ? (
                   <img
                     src={user.avatar}

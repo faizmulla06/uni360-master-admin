@@ -34,10 +34,10 @@
   }
 
   .sidebar-link {
-    @apply flex items-center px-4 py-3 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200;
+    @apply flex items-center px-4 py-3 text-gray-300 hover:bg-gray-600 hover:text-white rounded-lg transition-colors duration-200;
   }
 
   .sidebar-link.active {
-    @apply bg-primary-500 text-white hover:bg-primary-600;
+    @apply bg-blue-600 text-white hover:bg-blue-700;
   }
 }
