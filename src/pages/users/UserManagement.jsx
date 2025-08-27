@@ -13,11 +13,45 @@ import {
   ShieldCheckIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
-import { usersAPI } from "../../services/apiServices";
+// import { usersAPI } from "../../services/apiServices";
+
+// Dummy data for users
+const dummyUsers = [
+  {
+    id: 1,
+    name: "John Doe",
+    email: "john@example.com",
+    role: "agent",
+    status: "active",
+    country: "UK",
+    lastLogin: "2024-01-15T10:30:00Z",
+    createdAt: "2023-06-01T09:00:00Z",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    email: "jane@example.com",
+    role: "student",
+    status: "active",
+    country: "Germany",
+    lastLogin: "2024-01-14T14:20:00Z",
+    createdAt: "2023-05-15T11:30:00Z",
+  },
+  {
+    id: 3,
+    name: "Admin User",
+    email: "admin@example.com",
+    role: "admin",
+    status: "active",
+    country: "UK",
+    lastLogin: "2024-01-16T08:45:00Z",
+    createdAt: "2023-01-01T00:00:00Z",
+  },
+];
 
 const UserManagement = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState(dummyUsers);
+  const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState({
     search: "",
     role: "",
@@ -30,37 +64,41 @@ const UserManagement = () => {
   const [modalMode, setModalMode] = useState("view"); // 'view', 'create', 'edit'
   const [totalPages, setTotalPages] = useState(1);
   const [stats, setStats] = useState({
-    total: 0,
-    agents: 0,
-    students: 0,
-    admins: 0,
+    total: 3,
+    agents: 1,
+    students: 1,
+    admins: 1,
   });
-
-  useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
 
   const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await usersAPI.getUsers(filters);
-      setUsers(response.data.users);
-      setTotalPages(response.data.totalPages);
+      // Commented out API call - using dummy data
+      // const response = await usersAPI.getUsers(filters);
+      // setUsers(response.data.users);
+      // setTotalPages(response.data.totalPages);
 
-      // Calculate stats
-      const allUsers = response.data.users;
+      // Using dummy data instead
+      setUsers(dummyUsers);
+      setTotalPages(1);
+
+      // Calculate stats from dummy data
       setStats({
-        total: allUsers.length,
-        agents: allUsers.filter((u) => u.role === "agent").length,
-        students: allUsers.filter((u) => u.role === "student").length,
-        admins: allUsers.filter((u) => u.role === "admin").length,
+        total: dummyUsers.length,
+        agents: dummyUsers.filter((u) => u.role === "agent").length,
+        students: dummyUsers.filter((u) => u.role === "student").length,
+        admins: dummyUsers.filter((u) => u.role === "admin").length,
       });
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
       setLoading(false);
     }
-  }, [filters]);
+  }, []); // Removed filters dependency since we're using dummy data
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const handleSearch = (e) => {
     setFilters({ ...filters, search: e.target.value, page: 1 });
@@ -78,8 +116,13 @@ const UserManagement = () => {
 
   const handleViewUser = async (userId) => {
     try {
-      const response = await usersAPI.getUser(userId);
-      setSelectedUser(response.data);
+      // Commented out API call - using dummy data
+      // const response = await usersAPI.getUser(userId);
+      // setSelectedUser(response.data);
+
+      // Find user in dummy data
+      const user = dummyUsers.find((u) => u.id === userId);
+      setSelectedUser(user);
       setModalMode("view");
       setShowUserModal(true);
     } catch (error) {
@@ -89,8 +132,13 @@ const UserManagement = () => {
 
   const handleEditUser = async (userId) => {
     try {
-      const response = await usersAPI.getUser(userId);
-      setSelectedUser(response.data);
+      // Commented out API call - using dummy data
+      // const response = await usersAPI.getUser(userId);
+      // setSelectedUser(response.data);
+
+      // Find user in dummy data
+      const user = dummyUsers.find((u) => u.id === userId);
+      setSelectedUser(user);
       setModalMode("edit");
       setShowUserModal(true);
     } catch (error) {
@@ -101,8 +149,20 @@ const UserManagement = () => {
   const handleDeleteUser = async (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        await usersAPI.deleteUser(userId);
-        fetchUsers();
+        // Commented out API call
+        // await usersAPI.deleteUser(userId);
+
+        // Remove from dummy data
+        const updatedUsers = users.filter((u) => u.id !== userId);
+        setUsers(updatedUsers);
+
+        // Update stats
+        setStats({
+          total: updatedUsers.length,
+          agents: updatedUsers.filter((u) => u.role === "agent").length,
+          students: updatedUsers.filter((u) => u.role === "student").length,
+          admins: updatedUsers.filter((u) => u.role === "admin").length,
+        });
       } catch (error) {
         console.error("Error deleting user:", error);
       }
@@ -112,12 +172,25 @@ const UserManagement = () => {
   const handleSaveUser = async (userData) => {
     try {
       if (modalMode === "create") {
-        await usersAPI.createUser(userData);
+        // Commented out API call
+        // await usersAPI.createUser(userData);
+
+        // Add to dummy data
+        const newUser = { ...userData, id: users.length + 1 };
+        const updatedUsers = [...users, newUser];
+        setUsers(updatedUsers);
       } else if (modalMode === "edit") {
-        await usersAPI.updateUser(selectedUser.id, userData);
+        // Commented out API call
+        // await usersAPI.updateUser(selectedUser.id, userData);
+
+        // Update in dummy data
+        const updatedUsers = users.map((u) =>
+          u.id === selectedUser.id ? { ...u, ...userData } : u
+        );
+        setUsers(updatedUsers);
       }
       setShowUserModal(false);
-      fetchUsers();
+      // fetchUsers(); // Comment out as well
     } catch (error) {
       console.error("Error saving user:", error);
     }

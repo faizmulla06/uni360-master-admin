@@ -8,14 +8,17 @@ export default defineConfig({
   build: {
     outDir: "dist",
     assetsDir: "assets",
+    target: "es2020",
+    sourcemap: false,
+    minify: false, // Disable minification completely to avoid variable hoisting issues
     rollupOptions: {
       output: {
+        format: "es",
+        // Use a simple chunking strategy
         manualChunks: {
           vendor: ["react", "react-dom"],
           router: ["react-router-dom"],
-          ui: ["@headlessui/react", "@heroicons/react", "framer-motion"],
-          charts: ["chart.js", "react-chartjs-2"],
-          redux: ["@reduxjs/toolkit", "react-redux"],
+          state: ["@reduxjs/toolkit", "react-redux"],
         },
       },
     },

@@ -13,11 +13,51 @@ import {
   CurrencyPoundIcon,
   StarIcon,
 } from "@heroicons/react/24/outline";
-import { universitiesAPI } from "../../services/apiServices";
+// import { universitiesAPI } from "../../services/apiServices";
+
+// Dummy data for universities
+const dummyUniversities = [
+  {
+    id: 1,
+    name: "University of Manchester",
+    country: "UK",
+    city: "Manchester",
+    status: "active",
+    ranking: 27,
+    establishedYear: 1824,
+    tuitionFee: 28000,
+    programs: 85,
+    description: "A leading research university in the UK",
+  },
+  {
+    id: 2,
+    name: "Technical University of Munich",
+    country: "Germany",
+    city: "Munich",
+    status: "active",
+    ranking: 45,
+    establishedYear: 1868,
+    tuitionFee: 5000,
+    programs: 65,
+    description: "One of Europe's top technical universities",
+  },
+  {
+    id: 3,
+    name: "University of Edinburgh",
+    country: "UK",
+    city: "Edinburgh",
+    status: "active",
+    ranking: 18,
+    establishedYear: 1583,
+    tuitionFee: 32000,
+    programs: 95,
+    description: "Historic university with excellent research programs",
+  },
+];
 
 const UniversityManagement = () => {
-  const [universities, setUniversities] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [universities, setUniversities] = useState(dummyUniversities);
+  const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState({
     search: "",
     country: "",
@@ -29,25 +69,29 @@ const UniversityManagement = () => {
   const [showUniversityModal, setShowUniversityModal] = useState(false);
   const [modalMode, setModalMode] = useState("view"); // 'view', 'create', 'edit'
   const [stats, setStats] = useState({
-    total: 0,
-    uk: 0,
-    germany: 0,
-    active: 0,
+    total: 3,
+    uk: 2,
+    germany: 1,
+    active: 3,
   });
 
   const fetchUniversities = async () => {
     try {
       setLoading(true);
-      const response = await universitiesAPI.getUniversities(filters);
-      setUniversities(response.data.universities);
+      // Commented out API call - using dummy data
+      // const response = await universitiesAPI.getUniversities(filters);
+      // setUniversities(response.data.universities);
 
-      // Calculate stats
-      const allUniversities = response.data.universities;
+      // Using dummy data instead
+      setUniversities(dummyUniversities);
+
+      // Calculate stats from dummy data
       setStats({
-        total: allUniversities.length,
-        uk: allUniversities.filter((u) => u.country === "UK").length,
-        germany: allUniversities.filter((u) => u.country === "Germany").length,
-        active: allUniversities.filter((u) => u.status === "active").length,
+        total: dummyUniversities.length,
+        uk: dummyUniversities.filter((u) => u.country === "UK").length,
+        germany: dummyUniversities.filter((u) => u.country === "Germany")
+          .length,
+        active: dummyUniversities.filter((u) => u.status === "active").length,
       });
     } catch (error) {
       console.error("Error fetching universities:", error);
@@ -77,8 +121,13 @@ const UniversityManagement = () => {
 
   const handleViewUniversity = async (universityId) => {
     try {
-      const response = await universitiesAPI.getUniversity(universityId);
-      setSelectedUniversity(response.data);
+      // Commented out API call - using dummy data
+      // const response = await universitiesAPI.getUniversity(universityId);
+      // setSelectedUniversity(response.data);
+
+      // Find university in dummy data
+      const university = dummyUniversities.find((u) => u.id === universityId);
+      setSelectedUniversity(university);
       setModalMode("view");
       setShowUniversityModal(true);
     } catch (error) {
@@ -88,8 +137,13 @@ const UniversityManagement = () => {
 
   const handleEditUniversity = async (universityId) => {
     try {
-      const response = await universitiesAPI.getUniversity(universityId);
-      setSelectedUniversity(response.data);
+      // Commented out API call - using dummy data
+      // const response = await universitiesAPI.getUniversity(universityId);
+      // setSelectedUniversity(response.data);
+
+      // Find university in dummy data
+      const university = dummyUniversities.find((u) => u.id === universityId);
+      setSelectedUniversity(university);
       setModalMode("edit");
       setShowUniversityModal(true);
     } catch (error) {
@@ -100,8 +154,24 @@ const UniversityManagement = () => {
   const handleDeleteUniversity = async (universityId) => {
     if (window.confirm("Are you sure you want to delete this university?")) {
       try {
-        await universitiesAPI.deleteUniversity(universityId);
-        fetchUniversities();
+        // Commented out API call
+        // await universitiesAPI.deleteUniversity(universityId);
+
+        // Remove from dummy data
+        const updatedUniversities = universities.filter(
+          (u) => u.id !== universityId
+        );
+        setUniversities(updatedUniversities);
+
+        // Update stats
+        setStats({
+          total: updatedUniversities.length,
+          uk: updatedUniversities.filter((u) => u.country === "UK").length,
+          germany: updatedUniversities.filter((u) => u.country === "Germany")
+            .length,
+          active: updatedUniversities.filter((u) => u.status === "active")
+            .length,
+        });
       } catch (error) {
         console.error("Error deleting university:", error);
       }
@@ -111,15 +181,28 @@ const UniversityManagement = () => {
   const handleSaveUniversity = async (universityData) => {
     try {
       if (modalMode === "create") {
-        await universitiesAPI.createUniversity(universityData);
+        // Commented out API call
+        // await universitiesAPI.createUniversity(universityData);
+
+        // Add to dummy data
+        const newUniversity = {
+          ...universityData,
+          id: universities.length + 1,
+        };
+        const updatedUniversities = [...universities, newUniversity];
+        setUniversities(updatedUniversities);
       } else if (modalMode === "edit") {
-        await universitiesAPI.updateUniversity(
-          selectedUniversity.id,
-          universityData
+        // Commented out API call
+        // await universitiesAPI.updateUniversity(selectedUniversity.id, universityData);
+
+        // Update in dummy data
+        const updatedUniversities = universities.map((u) =>
+          u.id === selectedUniversity.id ? { ...u, ...universityData } : u
         );
+        setUniversities(updatedUniversities);
       }
       setShowUniversityModal(false);
-      fetchUniversities();
+      // fetchUniversities(); // Comment out as well
     } catch (error) {
       console.error("Error saving university:", error);
     }

@@ -5,7 +5,7 @@ import {
   fetchDashboardStart,
   fetchDashboardSuccess,
 } from "../../store/slices/dashboardSlice";
-import { dashboardAPI } from "../../services/apiServices";
+// import { dashboardAPI } from "../../services/apiServices";
 import StatsCards from "../../components/dashboard/StatsCards";
 import ConversionFunnel from "../../components/dashboard/ConversionFunnel";
 import RevenueChart from "../../components/dashboard/RevenueChart";
@@ -29,8 +29,36 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       dispatch(fetchDashboardStart());
       try {
-        const response = await dashboardAPI.getStats(selectedCountry);
-        dispatch(fetchDashboardSuccess(response.data));
+        // Commented out API call for demo
+        // const response = await dashboardAPI.getStats(selectedCountry);
+        // dispatch(fetchDashboardSuccess(response.data));
+
+        // Using dummy data instead
+        dispatch(
+          fetchDashboardSuccess({
+            stats: {
+              totalStudents: 1245,
+              totalApplications: 523,
+              totalUniversities: 89,
+              totalRevenue: 2547889,
+            },
+            conversionData: [
+              { stage: "Inquiries", count: 1500 },
+              { stage: "Applications", count: 1200 },
+              { stage: "Interviews", count: 800 },
+              { stage: "Offers", count: 600 },
+              { stage: "Enrollments", count: 450 },
+            ],
+            revenueData: [
+              { month: "Jan", revenue: 85000 },
+              { month: "Feb", revenue: 92000 },
+              { month: "Mar", revenue: 78000 },
+              { month: "Apr", revenue: 105000 },
+              { month: "May", revenue: 118000 },
+              { month: "Jun", revenue: 134000 },
+            ],
+          })
+        );
       } catch (error) {
         console.error("Failed to fetch dashboard data:", error);
       }

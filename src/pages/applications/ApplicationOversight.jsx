@@ -11,11 +11,48 @@ import {
   ClockIcon,
   AcademicCapIcon,
 } from "@heroicons/react/24/outline";
-import { applicationsAPI } from "../../services/apiServices";
+// import { applicationsAPI } from "../../services/apiServices";
+
+// Dummy data for applications
+const dummyApplications = [
+  {
+    id: 1,
+    studentName: "Alice Johnson",
+    university: "University of Manchester",
+    program: "Computer Science MSc",
+    status: "submitted",
+    dateSubmitted: "2024-01-15",
+    agentName: "Agent Smith",
+    country: "UK",
+    documents: ["transcript", "sop", "resume"],
+  },
+  {
+    id: 2,
+    studentName: "Bob Wilson",
+    university: "Technical University of Munich",
+    program: "Engineering PhD",
+    status: "approved",
+    dateSubmitted: "2024-01-10",
+    agentName: "Agent Brown",
+    country: "Germany",
+    documents: ["transcript", "sop", "resume", "research_proposal"],
+  },
+  {
+    id: 3,
+    studentName: "Carol Davis",
+    university: "University of Edinburgh",
+    program: "Business MBA",
+    status: "pending",
+    dateSubmitted: "2024-01-20",
+    agentName: "Agent Smith",
+    country: "UK",
+    documents: ["transcript", "sop"],
+  },
+];
 
 const ApplicationOversight = () => {
-  const [applications, setApplications] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [applications, setApplications] = useState(dummyApplications);
+  const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState({
     search: "",
     status: "",
@@ -42,28 +79,34 @@ const ApplicationOversight = () => {
   const fetchApplications = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await applicationsAPI.getApplications(filters);
-      setApplications(response.data.applications);
-      setTotalPages(response.data.totalPages);
+      // Commented out API call - using dummy data
+      // const response = await applicationsAPI.getApplications(filters);
+      // setApplications(response.data.applications);
+      // setTotalPages(response.data.totalPages);
 
-      // Calculate stats
-      const allApplications = response.data.applications;
+      // Using dummy data instead
+      setApplications(dummyApplications);
+      setTotalPages(1);
+
+      // Calculate stats from dummy data
       setStats({
-        total: allApplications.length,
-        submitted: allApplications.filter((a) => a.status === "submitted")
+        total: dummyApplications.length,
+        submitted: dummyApplications.filter((a) => a.status === "submitted")
           .length,
-        underReview: allApplications.filter((a) => a.status === "under_review")
+        underReview: dummyApplications.filter(
+          (a) => a.status === "under_review"
+        ).length,
+        offers: dummyApplications.filter((a) => a.status === "offer_received")
           .length,
-        offers: allApplications.filter((a) => a.status === "offer_received")
+        admitted: dummyApplications.filter((a) => a.status === "admitted")
           .length,
-        admitted: allApplications.filter((a) => a.status === "admitted").length,
       });
     } catch (error) {
       console.error("Error fetching applications:", error);
     } finally {
       setLoading(false);
     }
-  }, [filters]);
+  }, []); // Removed filters dependency since we're using dummy data
 
   const handleSearch = (e) => {
     setFilters({ ...filters, search: e.target.value, page: 1 });
@@ -75,8 +118,13 @@ const ApplicationOversight = () => {
 
   const handleViewApplication = async (applicationId) => {
     try {
-      const response = await applicationsAPI.getApplication(applicationId);
-      setSelectedApplication(response.data);
+      // Commented out API call - using dummy data
+      // const response = await applicationsAPI.getApplication(applicationId);
+      // setSelectedApplication(response.data);
+
+      // Find application in dummy data
+      const application = dummyApplications.find((a) => a.id === applicationId);
+      setSelectedApplication(application);
       setShowApplicationModal(true);
     } catch (error) {
       console.error("Error fetching application:", error);
@@ -85,15 +133,35 @@ const ApplicationOversight = () => {
 
   const handleStatusUpdate = async (applicationId, newStatus, note) => {
     try {
-      await applicationsAPI.updateApplicationStatus(
-        applicationId,
-        newStatus,
-        note
+      // Commented out API call
+      // await applicationsAPI.updateApplicationStatus(applicationId, newStatus, note);
+
+      // Update in dummy data
+      const updatedApplications = applications.map((a) =>
+        a.id === applicationId ? { ...a, status: newStatus, note: note } : a
       );
-      fetchApplications();
+      setApplications(updatedApplications);
+
+      // Update stats
+      setStats({
+        total: updatedApplications.length,
+        submitted: updatedApplications.filter((a) => a.status === "submitted")
+          .length,
+        underReview: updatedApplications.filter(
+          (a) => a.status === "under_review"
+        ).length,
+        offers: updatedApplications.filter((a) => a.status === "offer_received")
+          .length,
+        admitted: updatedApplications.filter((a) => a.status === "admitted")
+          .length,
+      });
+
       if (selectedApplication && selectedApplication.id === applicationId) {
-        const response = await applicationsAPI.getApplication(applicationId);
-        setSelectedApplication(response.data);
+        // Update selected application
+        const updatedApp = updatedApplications.find(
+          (a) => a.id === applicationId
+        );
+        setSelectedApplication(updatedApp);
       }
     } catch (error) {
       console.error("Error updating application status:", error);

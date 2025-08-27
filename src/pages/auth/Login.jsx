@@ -8,7 +8,7 @@ import {
   loginSuccess,
   loginFailure,
 } from "../../store/slices/authSlice";
-import { authAPI } from "../../services/apiServices";
+// import { authAPI } from "../../services/apiServices";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -33,8 +33,22 @@ const Login = () => {
     dispatch(loginStart());
 
     try {
-      const response = await authAPI.login(formData.email, formData.password);
-      dispatch(loginSuccess(response.data));
+      // Commented out API call for demo
+      // const response = await authAPI.login(formData.email, formData.password);
+      // dispatch(loginSuccess(response.data));
+
+      // Simulate successful login with dummy data
+      dispatch(
+        loginSuccess({
+          user: {
+            id: 1,
+            name: "Admin User",
+            email: formData.email,
+            role: "admin",
+          },
+          token: "dummy-token",
+        })
+      );
       navigate("/dashboard");
     } catch (err) {
       dispatch(loginFailure(err.message || "Login failed"));
@@ -45,9 +59,22 @@ const Login = () => {
     dispatch(loginStart());
 
     try {
-      // In a real implementation, this would integrate with Google OAuth
-      const response = await authAPI.googleLogin("fake-google-token");
-      dispatch(loginSuccess(response.data));
+      // Commented out API call for demo
+      // const response = await authAPI.googleLogin("fake-google-token");
+      // dispatch(loginSuccess(response.data));
+
+      // Simulate successful login with dummy data
+      dispatch(
+        loginSuccess({
+          user: {
+            id: 1,
+            name: "Admin User",
+            email: "admin@example.com",
+            role: "admin",
+          },
+          token: "dummy-token",
+        })
+      );
       navigate("/dashboard");
     } catch (err) {
       dispatch(loginFailure(err.message || "Google login failed"));

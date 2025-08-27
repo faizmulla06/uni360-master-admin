@@ -22,51 +22,54 @@ import AppointmentOversight from "./pages/appointments/AppointmentOversight";
 import AccountSettings from "./pages/settings/AccountSettings";
 import AITools from "./pages/ai/AITools";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   return (
-    <Provider store={store}>
-      <Router>
-        <div className="App">
-          <Routes>
-            {/* Authentication Routes */}
-            <Route
-              path="/login"
-              element={
-                <AuthLayout>
-                  <Login />
-                </AuthLayout>
-              }
-            />
+    <ErrorBoundary>
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Routes>
+              {/* Authentication Routes */}
+              <Route
+                path="/login"
+                element={
+                  <AuthLayout>
+                    <Login />
+                  </AuthLayout>
+                }
+              />
 
-            {/* Protected Routes */}
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <MainLayout />
-                </ProtectedRoute>
-              }>
-              <Route index element={<Navigate to="/dashboard" replace />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="users" element={<UserManagement />} />
-              <Route path="universities" element={<UniversityManagement />} />
-              <Route path="applications" element={<ApplicationOversight />} />
-              <Route path="commissions" element={<CommissionTracker />} />
-              <Route path="payments" element={<PaymentManagement />} />
-              <Route path="reports" element={<ReportsAnalytics />} />
-              <Route path="documents" element={<DocumentManagement />} />
-              <Route path="appointments" element={<AppointmentOversight />} />
-              <Route path="settings" element={<AccountSettings />} />
-              <Route path="ai-tools" element={<AITools />} />
-            </Route>
+              {/* Protected Routes */}
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout />
+                  </ProtectedRoute>
+                }>
+                <Route index element={<Navigate to="/dashboard" replace />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="users" element={<UserManagement />} />
+                <Route path="universities" element={<UniversityManagement />} />
+                <Route path="applications" element={<ApplicationOversight />} />
+                <Route path="commissions" element={<CommissionTracker />} />
+                <Route path="payments" element={<PaymentManagement />} />
+                <Route path="reports" element={<ReportsAnalytics />} />
+                <Route path="documents" element={<DocumentManagement />} />
+                <Route path="appointments" element={<AppointmentOversight />} />
+                <Route path="settings" element={<AccountSettings />} />
+                <Route path="ai-tools" element={<AITools />} />
+              </Route>
 
-            {/* Catch all route */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
-          </Routes>
-        </div>
-      </Router>
-    </Provider>
+              {/* Catch all route */}
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Routes>
+          </div>
+        </Router>
+      </Provider>
+    </ErrorBoundary>
   );
 }
 

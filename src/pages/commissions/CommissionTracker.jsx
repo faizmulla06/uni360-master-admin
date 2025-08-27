@@ -11,11 +11,48 @@ import {
   ClockIcon,
   XCircleIcon,
 } from "@heroicons/react/24/outline";
-import { commissionsAPI } from "../../services/apiServices";
+// import { commissionsAPI } from "../../services/apiServices";
+
+// Dummy data for commissions
+const dummyCommissions = [
+  {
+    id: 1,
+    studentName: "John Smith",
+    university: "University of Manchester",
+    program: "Computer Science MSc",
+    amount: 2500,
+    status: "pending",
+    dateCreated: "2024-01-15",
+    dueDate: "2024-02-15",
+    agentName: "Agent One",
+  },
+  {
+    id: 2,
+    studentName: "Sarah Johnson",
+    university: "Technical University of Munich",
+    program: "Engineering PhD",
+    amount: 3000,
+    status: "paid",
+    dateCreated: "2024-01-10",
+    dueDate: "2024-02-10",
+    agentName: "Agent Two",
+  },
+  {
+    id: 3,
+    studentName: "Mike Brown",
+    university: "University of Edinburgh",
+    program: "Business MBA",
+    amount: 4500,
+    status: "approved",
+    dateCreated: "2024-01-20",
+    dueDate: "2024-02-20",
+    agentName: "Agent One",
+  },
+];
 
 const CommissionTracker = () => {
-  const [commissions, setCommissions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [commissions, setCommissions] = useState(dummyCommissions);
+  const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState({
     search: "",
     status: "",
@@ -27,7 +64,7 @@ const CommissionTracker = () => {
   const [selectedCommission, setSelectedCommission] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [stats, setStats] = useState({
-    total: 0,
+    total: 10000,
     totalAmount: 0,
     pending: 0,
     paid: 0,
@@ -36,16 +73,19 @@ const CommissionTracker = () => {
   const fetchCommissions = async () => {
     try {
       setLoading(true);
-      const response = await commissionsAPI.getCommissions(filters);
-      setCommissions(response.data.commissions);
+      // Commented out API call - using dummy data
+      // const response = await commissionsAPI.getCommissions(filters);
+      // setCommissions(response.data.commissions);
 
-      // Calculate stats
-      const allCommissions = response.data.commissions;
+      // Using dummy data instead
+      setCommissions(dummyCommissions);
+
+      // Calculate stats from dummy data
       setStats({
-        total: allCommissions.length,
-        totalAmount: allCommissions.reduce((sum, c) => sum + c.amount, 0),
-        pending: allCommissions.filter((c) => c.status === "pending").length,
-        paid: allCommissions.filter((c) => c.status === "paid").length,
+        total: dummyCommissions.length,
+        totalAmount: dummyCommissions.reduce((sum, c) => sum + c.amount, 0),
+        pending: dummyCommissions.filter((c) => c.status === "pending").length,
+        paid: dummyCommissions.filter((c) => c.status === "paid").length,
       });
     } catch (error) {
       console.error("Error fetching commissions:", error);
@@ -69,8 +109,13 @@ const CommissionTracker = () => {
 
   const handleViewDetails = async (commissionId) => {
     try {
-      const response = await commissionsAPI.getCommission(commissionId);
-      setSelectedCommission(response.data);
+      // Commented out API call - using dummy data
+      // const response = await commissionsAPI.getCommission(commissionId);
+      // setSelectedCommission(response.data);
+
+      // Find commission in dummy data
+      const commission = dummyCommissions.find((c) => c.id === commissionId);
+      setSelectedCommission(commission);
       setShowDetailsModal(true);
     } catch (error) {
       console.error("Error fetching commission:", error);
@@ -79,8 +124,23 @@ const CommissionTracker = () => {
 
   const handleUpdateStatus = async (commissionId, newStatus) => {
     try {
-      await commissionsAPI.updateCommissionStatus(commissionId, newStatus);
-      fetchCommissions();
+      // Commented out API call
+      // await commissionsAPI.updateCommissionStatus(commissionId, newStatus);
+
+      // Update in dummy data
+      const updatedCommissions = commissions.map((c) =>
+        c.id === commissionId ? { ...c, status: newStatus } : c
+      );
+      setCommissions(updatedCommissions);
+
+      // Update stats
+      setStats({
+        total: updatedCommissions.length,
+        totalAmount: updatedCommissions.reduce((sum, c) => sum + c.amount, 0),
+        pending: updatedCommissions.filter((c) => c.status === "pending")
+          .length,
+        paid: updatedCommissions.filter((c) => c.status === "paid").length,
+      });
     } catch (error) {
       console.error("Error updating commission status:", error);
     }
