@@ -69,13 +69,43 @@ A fully functional, responsive master admin portal built with React, Vite, Tailw
    ```
 
 3. **Build for production**:
+
    ```bash
    npm run build
    ```
 
+4. **Preview production build**:
+
+   ```bash
+   npm run preview
+   ```
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+This project is optimized for Vercel deployment with proper SPA routing configured.
+
+1. **Connect to Vercel**:
+
+   - Connect your GitHub repository to Vercel
+   - Vercel will auto-detect the Vite configuration
+
+2. **Configuration**:
+
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+
+3. **Environment Variables**:
+   - Add any environment variables in Vercel dashboard
+   - Prefix client-side variables with `VITE_`
+
+For detailed deployment instructions, see `DEPLOYMENT.md`.
+
 ### Demo Login
 
-- **Email**: admin@uni360.com
+- **Email**: `admin@uni360.com`
 - **Password**: admin123
 
 ## 🎨 Design System
@@ -102,7 +132,7 @@ The application uses placeholder APIs that can be easily connected to a Django b
 
 ## 📊 Architecture
 
-```
+```text
 src/
 ├── components/     # Reusable UI components
 ├── layouts/        # Page layouts (Auth, Main)
