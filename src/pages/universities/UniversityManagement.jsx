@@ -22,11 +22,15 @@ const dummyUniversities = [
     name: "University of Manchester",
     country: "UK",
     city: "Manchester",
+    location: "Manchester, UK",
     status: "active",
     ranking: 27,
     establishedYear: 1824,
     tuitionFee: 28000,
     programs: 85,
+    totalStudents: 40000,
+    commissionRate: 15,
+    logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMDA2NkNDIi8+Cjx0ZXh0IHg9IjI0IiB5PSIzMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VU08L3RleHQ+Cjwvc3ZnPgo=",
     description: "A leading research university in the UK",
   },
   {
@@ -34,11 +38,15 @@ const dummyUniversities = [
     name: "Technical University of Munich",
     country: "Germany",
     city: "Munich",
+    location: "Munich, Germany",
     status: "active",
     ranking: 45,
     establishedYear: 1868,
     tuitionFee: 5000,
     programs: 65,
+    totalStudents: 45000,
+    commissionRate: 12,
+    logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBmaWxsPSIjRkY2NjAwIi8+Cjx0ZXh0IHg9IjI0IiB5PSIzMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VFVNPC90ZXh0Pgo8L3N2Zz4K",
     description: "One of Europe's top technical universities",
   },
   {
@@ -46,11 +54,15 @@ const dummyUniversities = [
     name: "University of Edinburgh",
     country: "UK",
     city: "Edinburgh",
+    location: "Edinburgh, UK",
     status: "active",
     ranking: 18,
     establishedYear: 1583,
     tuitionFee: 32000,
     programs: 95,
+    totalStudents: 35000,
+    commissionRate: 18,
+    logo: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiBmaWxsPSIjODAwMDgwIi8+Cjx0ZXh0IHg9IjI0IiB5PSIzMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VUU8L3RleHQ+Cjwvc3ZnPgo=",
     description: "Historic university with excellent research programs",
   },
 ];
@@ -102,8 +114,7 @@ const UniversityManagement = () => {
 
   useEffect(() => {
     fetchUniversities();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters]);
+  }, []); // Removed filters dependency since we're using dummy data
 
   const handleSearch = (e) => {
     setFilters({ ...filters, search: e.target.value, page: 1 });

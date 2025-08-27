@@ -72,10 +72,6 @@ const ApplicationOversight = () => {
     admitted: 0,
   });
 
-  useEffect(() => {
-    fetchApplications();
-  }, [fetchApplications]);
-
   const fetchApplications = useCallback(async () => {
     try {
       setLoading(true);
@@ -107,6 +103,10 @@ const ApplicationOversight = () => {
       setLoading(false);
     }
   }, []); // Removed filters dependency since we're using dummy data
+
+  useEffect(() => {
+    fetchApplications();
+  }, [fetchApplications]);
 
   const handleSearch = (e) => {
     setFilters({ ...filters, search: e.target.value, page: 1 });

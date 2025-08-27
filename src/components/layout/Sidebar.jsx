@@ -54,12 +54,12 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <motion.div
-        animate={{ width: sidebarOpen ? 256 : 64 }}
+        animate={{ width: 256 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className="fixed left-0 top-16 h-[calc(100vh-4rem)] bg-gray-700 border-r border-gray-600 z-50 overflow-hidden shadow-lg">
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto py-4">
-          <div className="space-y-1 px-3">
+        <nav className="flex-1 overflow-y-auto overflow-x-hidden py-4">
+          <div className="space-y-1 pr-3 ">
             {navigation.map((item) => {
               const isActive = location.pathname === item.href;
               return (
@@ -73,8 +73,7 @@ const Sidebar = () => {
                   <item.icon className="h-6 w-6 flex-shrink-0" />
                   <motion.span
                     animate={{
-                      opacity: sidebarOpen ? 1 : 0,
-                      x: sidebarOpen ? 0 : -10,
+                      opacity: 1,
                     }}
                     transition={{ duration: 0.2 }}
                     className="ml-3 text-sm font-medium">
