@@ -5,8 +5,8 @@ import {
   CalendarIcon,
   UserGroupIcon,
   AcademicCapIcon,
-  TrendingUpIcon,
-  DownloadIcon,
+  ArrowTrendingUpIcon,
+  ArrowDownTrayIcon,
 } from "@heroicons/react/24/outline";
 
 const ReportsAnalytics = () => {
@@ -42,7 +42,7 @@ const ReportsAnalytics = () => {
       name: "Revenue Growth",
       value: "24.8%",
       change: "+3.1%",
-      icon: TrendingUpIcon,
+      icon: ArrowTrendingUpIcon,
       color: "text-indigo-600",
       bgColor: "bg-indigo-100",
     },
@@ -53,7 +53,7 @@ const ReportsAnalytics = () => {
     { id: "applications", name: "Applications", icon: DocumentChartBarIcon },
     { id: "students", name: "Students", icon: UserGroupIcon },
     { id: "universities", name: "Universities", icon: AcademicCapIcon },
-    { id: "revenue", name: "Revenue", icon: TrendingUpIcon },
+    { id: "revenue", name: "Revenue", icon: ArrowTrendingUpIcon },
   ];
 
   const recentReports = [
@@ -105,7 +105,7 @@ const ReportsAnalytics = () => {
             <option value="1year">Last year</option>
           </select>
           <button className="btn-primary">
-            <DownloadIcon className="h-5 w-5" />
+            <ArrowDownTrayIcon className="h-5 w-5" />
             Export Report
           </button>
         </div>

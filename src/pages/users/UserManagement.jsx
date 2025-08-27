@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   UserGroupIcon,
@@ -38,9 +38,9 @@ const UserManagement = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [filters]);
+  }, [fetchUsers]);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
       const response = await usersAPI.getUsers(filters);
@@ -60,7 +60,7 @@ const UserManagement = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters]);
 
   const handleSearch = (e) => {
     setFilters({ ...filters, search: e.target.value, page: 1 });

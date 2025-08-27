@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import {
   fetchDashboardStart,
   fetchDashboardSuccess,
-  updateCountryData,
 } from "../../store/slices/dashboardSlice";
 import { dashboardAPI } from "../../services/apiServices";
 import StatsCards from "../../components/dashboard/StatsCards";

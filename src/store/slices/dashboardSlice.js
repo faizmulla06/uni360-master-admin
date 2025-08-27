@@ -45,7 +45,7 @@ const dashboardSlice = createSlice({
     },
     updateCountryData: (state, action) => {
       // Update data based on selected country
-      const { country, data } = action.payload;
+      const { country: _country, data } = action.payload;
       state.stats = data.stats;
       state.conversionFunnel = data.conversionFunnel;
       state.revenueData = data.revenueData;

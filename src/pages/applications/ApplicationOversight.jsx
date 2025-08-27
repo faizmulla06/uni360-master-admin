@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   DocumentTextIcon,
@@ -26,7 +26,7 @@ const ApplicationOversight = () => {
   });
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [showApplicationModal, setShowApplicationModal] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
+  const [_totalPages, setTotalPages] = useState(1);
   const [stats, setStats] = useState({
     total: 0,
     submitted: 0,
@@ -37,9 +37,9 @@ const ApplicationOversight = () => {
 
   useEffect(() => {
     fetchApplications();
-  }, [filters]);
+  }, [fetchApplications]);
 
-  const fetchApplications = async () => {
+  const fetchApplications = useCallback(async () => {
     try {
       setLoading(true);
       const response = await applicationsAPI.getApplications(filters);
@@ -63,7 +63,7 @@ const ApplicationOversight = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters]);
 
   const handleSearch = (e) => {
     setFilters({ ...filters, search: e.target.value, page: 1 });
