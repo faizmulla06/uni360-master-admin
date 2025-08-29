@@ -14,6 +14,8 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import UserManagement from "./pages/users/UserManagement";
 import UniversityManagement from "./pages/universities/UniversityManagement";
 import ApplicationOversight from "./pages/applications/ApplicationOversight";
+import ApplicationDetails from "./pages/applications/ApplicationDetails";
+import StudentDetails from "./pages/students/StudentDetails";
 import CommissionTracker from "./pages/commissions/CommissionTracker";
 import PaymentManagement from "./pages/payments/PaymentManagement";
 import ReportsAnalytics from "./pages/reports/ReportsAnalytics";
@@ -52,8 +54,13 @@ function App() {
                 <Route index element={<Navigate to="/dashboard" replace />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="users" element={<UserManagement />} />
+                <Route path="users/:id" element={<StudentDetails />} />
                 <Route path="universities" element={<UniversityManagement />} />
                 <Route path="applications" element={<ApplicationOversight />} />
+                <Route
+                  path="applications/:id"
+                  element={<ApplicationDetails />}
+                />
                 <Route path="commissions" element={<CommissionTracker />} />
                 <Route path="payments" element={<PaymentManagement />} />
                 <Route path="reports" element={<ReportsAnalytics />} />

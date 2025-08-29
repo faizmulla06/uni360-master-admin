@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   UserGroupIcon,
@@ -50,6 +51,7 @@ const dummyUsers = [
 ];
 
 const UserManagement = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState(dummyUsers);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState({
@@ -116,15 +118,18 @@ const UserManagement = () => {
 
   const handleViewUser = async (userId) => {
     try {
-      // Commented out API call - using dummy data
-      // const response = await usersAPI.getUser(userId);
-      // setSelectedUser(response.data);
-
       // Find user in dummy data
       const user = dummyUsers.find((u) => u.id === userId);
-      setSelectedUser(user);
-      setModalMode("view");
-      setShowUserModal(true);
+
+      // If the user is a student, navigate to student details page
+      if (user && user.role === "student") {
+        navigate(`/users/${userId}`);
+      } else {
+        // For other user types (admin, agent), show modal
+        setSelectedUser(user);
+        setModalMode("view");
+        setShowUserModal(true);
+      }
     } catch (error) {
       console.error("Error fetching user:", error);
     }

@@ -7,6 +7,7 @@ import universitiesSlice from "./slices/universitiesSlice";
 import applicationsSlice from "./slices/applicationsSlice";
 import commissionsSlice from "./slices/commissionsSlice";
 import paymentsSlice from "./slices/paymentsSlice";
+import toastSlice from "./slices/toastSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     applications: applicationsSlice,
     commissions: commissionsSlice,
     payments: paymentsSlice,
+    toast: toastSlice,
   },
 });

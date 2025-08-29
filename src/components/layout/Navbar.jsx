@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   BellIcon,
   UserCircleIcon,
   ChevronDownIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -14,10 +15,12 @@ import {
 } from "../../store/slices/uiSlice";
 import { logout } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import GlobalSearch from "../GlobalSearch";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchOpen, setSearchOpen] = useState(false);
   const { selectedCountry, notifications, notificationsOpen, profileMenuOpen } =
     useSelector((state) => state.ui);
   const { user } = useSelector((state) => state.auth);
@@ -40,8 +43,25 @@ const Navbar = () => {
       }
     };
 
+    const handleKeyDown = (event) => {
+      // Open search with Ctrl+K or Cmd+K
+      if ((event.ctrlKey || event.metaKey) && event.key === "k") {
+        event.preventDefault();
+        setSearchOpen(true);
+      }
+      // Close search with Escape
+      if (event.key === "Escape") {
+        setSearchOpen(false);
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [notificationsOpen, profileMenuOpen, dispatch]);
 
   const handleCountryToggle = () => {
@@ -73,6 +93,14 @@ const Navbar = () => {
 
           {/* Right side - Controls */}
           <div className="flex items-center space-x-4">
+            {/* Global Search */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="p-2 text-gray-300 hover:text-white focus:outline-none focus:text-white transition-colors duration-150"
+              title="Search (Ctrl+K)">
+              <MagnifyingGlassIcon className="h-5 w-5" />
+            </button>
+
             {/* Country Toggle */}
             <div className="flex items-center">
               <span className="text-sm  mr-2">Country:</span>
@@ -202,6 +230,9 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Global Search Modal */}
+      <GlobalSearch isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </nav>
   );
 };

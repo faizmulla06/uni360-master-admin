@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   DocumentTextIcon,
@@ -51,6 +52,7 @@ const dummyApplications = [
 ];
 
 const ApplicationOversight = () => {
+  const navigate = useNavigate();
   const [applications, setApplications] = useState(dummyApplications);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState({
@@ -117,18 +119,8 @@ const ApplicationOversight = () => {
   };
 
   const handleViewApplication = async (applicationId) => {
-    try {
-      // Commented out API call - using dummy data
-      // const response = await applicationsAPI.getApplication(applicationId);
-      // setSelectedApplication(response.data);
-
-      // Find application in dummy data
-      const application = dummyApplications.find((a) => a.id === applicationId);
-      setSelectedApplication(application);
-      setShowApplicationModal(true);
-    } catch (error) {
-      console.error("Error fetching application:", error);
-    }
+    // Navigate to application details page
+    navigate(`/applications/${applicationId}`);
   };
 
   const handleStatusUpdate = async (applicationId, newStatus, note) => {
