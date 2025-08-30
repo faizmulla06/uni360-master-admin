@@ -38,8 +38,7 @@ const mockStudentData = {
       zipCode: "W1C 1DE",
       country: "United Kingdom",
     },
-    profilePhoto:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+    profilePhoto: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
   },
   academicInfo: {
     currentEducation: "Bachelor's in Computer Science",
@@ -145,10 +144,7 @@ const StatusBadge = ({ status }) => {
   };
 
   return (
-    <span
-      className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(
-        status
-      )}`}>
+    <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(status)}`}>
       {status.charAt(0).toUpperCase() + status.slice(1)}
     </span>
   );
@@ -167,13 +163,11 @@ const StudentDetails = () => {
     setTimeout(() => {
       setStudent(mockStudentData);
       setLoading(false);
-      dispatch(
-        addToast({
-          type: "success",
-          title: "Student data loaded",
-          message: "Student details have been successfully retrieved.",
-        })
-      );
+      dispatch(addToast({
+        type: "success",
+        title: "Student data loaded",
+        message: "Student details have been successfully retrieved.",
+      }));
     }, 1000);
   }, [id, dispatch]);
 
@@ -189,12 +183,11 @@ const StudentDetails = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900">
-            Student not found
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-900">Student not found</h2>
           <button
             onClick={() => navigate("/users")}
-            className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+            className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700"
+          >
             <ArrowLeftIcon className="h-4 w-4 mr-2" />
             Back to Users
           </button>
@@ -204,13 +197,11 @@ const StudentDetails = () => {
   }
 
   const handleEditStudent = () => {
-    dispatch(
-      addToast({
-        type: "info",
-        title: "Edit mode activated",
-        message: "Student editing functionality will be available soon.",
-      })
-    );
+    dispatch(addToast({
+      type: "info",
+      title: "Edit mode activated",
+      message: "Student editing functionality will be available soon.",
+    }));
   };
 
   const tabs = [
@@ -229,23 +220,22 @@ const StudentDetails = () => {
             <div className="flex items-center">
               <button
                 onClick={() => navigate("/users")}
-                className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+              >
                 <ArrowLeftIcon className="h-4 w-4 mr-2" />
                 Back
               </button>
               <div className="ml-4">
                 <h1 className="text-2xl font-bold text-gray-900">
-                  {student.personalInfo.firstName}{" "}
-                  {student.personalInfo.lastName}
+                  {student.personalInfo.firstName} {student.personalInfo.lastName}
                 </h1>
-                <p className="text-sm text-gray-500">
-                  Student ID: {student.id}
-                </p>
+                <p className="text-sm text-gray-500">Student ID: {student.id}</p>
               </div>
             </div>
-            <button
+            <button 
               onClick={handleEditStudent}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700"
+            >
               <PencilIcon className="h-4 w-4 mr-2" />
               Edit Student
             </button>
@@ -304,7 +294,8 @@ const StudentDetails = () => {
                     activeTab === tab.id
                       ? "border-indigo-500 text-indigo-600"
                       : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                  }`}>
+                  }`}
+                >
                   <Icon className="h-4 w-4 mr-2" />
                   {tab.name}
                 </button>
@@ -322,43 +313,28 @@ const StudentDetails = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Personal Information
-              </h3>
+              className="bg-white rounded-lg shadow p-6"
+            >
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Personal Information</h3>
               <dl className="space-y-3">
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    Date of Birth
-                  </dt>
-                  <dd className="text-sm text-gray-900">
-                    {student.personalInfo.dateOfBirth}
-                  </dd>
+                  <dt className="text-sm font-medium text-gray-500">Date of Birth</dt>
+                  <dd className="text-sm text-gray-900">{student.personalInfo.dateOfBirth}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    Nationality
-                  </dt>
-                  <dd className="text-sm text-gray-900">
-                    {student.personalInfo.nationality}
-                  </dd>
+                  <dt className="text-sm font-medium text-gray-500">Nationality</dt>
+                  <dd className="text-sm text-gray-900">{student.personalInfo.nationality}</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-medium text-gray-500">Address</dt>
                   <dd className="text-sm text-gray-900">
-                    {student.personalInfo.address.street},{" "}
-                    {student.personalInfo.address.city},{" "}
-                    {student.personalInfo.address.zipCode},{" "}
-                    {student.personalInfo.address.country}
+                    {student.personalInfo.address.street}, {student.personalInfo.address.city},{" "}
+                    {student.personalInfo.address.zipCode}, {student.personalInfo.address.country}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    Registration Date
-                  </dt>
-                  <dd className="text-sm text-gray-900">
-                    {student.registrationDate}
-                  </dd>
+                  <dt className="text-sm font-medium text-gray-500">Registration Date</dt>
+                  <dd className="text-sm text-gray-900">{student.registrationDate}</dd>
                 </div>
               </dl>
             </motion.div>
@@ -368,40 +344,26 @@ const StudentDetails = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Academic Information
-              </h3>
+              className="bg-white rounded-lg shadow p-6"
+            >
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Academic Information</h3>
               <dl className="space-y-3">
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    Current Education
-                  </dt>
-                  <dd className="text-sm text-gray-900">
-                    {student.academicInfo.currentEducation}
-                  </dd>
+                  <dt className="text-sm font-medium text-gray-500">Current Education</dt>
+                  <dd className="text-sm text-gray-900">{student.academicInfo.currentEducation}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    Institution
-                  </dt>
-                  <dd className="text-sm text-gray-900">
-                    {student.academicInfo.institution}
-                  </dd>
+                  <dt className="text-sm font-medium text-gray-500">Institution</dt>
+                  <dd className="text-sm text-gray-900">{student.academicInfo.institution}</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-medium text-gray-500">GPA</dt>
-                  <dd className="text-sm text-gray-900">
-                    {student.academicInfo.gpa}
-                  </dd>
+                  <dd className="text-sm text-gray-900">{student.academicInfo.gpa}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">
-                    English Proficiency
-                  </dt>
+                  <dt className="text-sm font-medium text-gray-500">English Proficiency</dt>
                   <dd className="text-sm text-gray-900">
-                    {student.academicInfo.englishProficiency.test}:{" "}
-                    {student.academicInfo.englishProficiency.score}
+                    {student.academicInfo.englishProficiency.test}: {student.academicInfo.englishProficiency.score}
                   </dd>
                 </div>
               </dl>
@@ -412,28 +374,21 @@ const StudentDetails = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Assigned Agent
-              </h3>
+              className="bg-white rounded-lg shadow p-6"
+            >
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Assigned Agent</h3>
               <dl className="space-y-3">
                 <div>
                   <dt className="text-sm font-medium text-gray-500">Name</dt>
-                  <dd className="text-sm text-gray-900">
-                    {student.agentInfo.name}
-                  </dd>
+                  <dd className="text-sm text-gray-900">{student.agentInfo.name}</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-medium text-gray-500">Email</dt>
-                  <dd className="text-sm text-gray-900">
-                    {student.agentInfo.email}
-                  </dd>
+                  <dd className="text-sm text-gray-900">{student.agentInfo.email}</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-medium text-gray-500">Phone</dt>
-                  <dd className="text-sm text-gray-900">
-                    {student.agentInfo.phone}
-                  </dd>
+                  <dd className="text-sm text-gray-900">{student.agentInfo.phone}</dd>
                 </div>
               </dl>
             </motion.div>
@@ -443,21 +398,16 @@ const StudentDetails = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Quick Stats
-              </h3>
+              className="bg-white rounded-lg shadow p-6"
+            >
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Stats</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-indigo-600">
-                    {student.applications.length}
-                  </div>
+                  <div className="text-2xl font-bold text-indigo-600">{student.applications.length}</div>
                   <div className="text-sm text-gray-500">Applications</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">
-                    {student.documents.length}
-                  </div>
+                  <div className="text-2xl font-bold text-green-600">{student.documents.length}</div>
                   <div className="text-sm text-gray-500">Documents</div>
                 </div>
               </div>
@@ -469,11 +419,10 @@ const StudentDetails = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-lg shadow">
+            className="bg-white rounded-lg shadow"
+          >
             <div className="px-6 py-4 border-b border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900">
-                Applications
-              </h3>
+              <h3 className="text-lg font-medium text-gray-900">Applications</h3>
             </div>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
@@ -501,12 +450,8 @@ const StudentDetails = () => {
                     <tr key={application.id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div>
-                          <div className="text-sm font-medium text-gray-900">
-                            {application.university}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {application.program}
-                          </div>
+                          <div className="text-sm font-medium text-gray-900">{application.university}</div>
+                          <div className="text-sm text-gray-500">{application.program}</div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -519,9 +464,7 @@ const StudentDetails = () => {
                         {application.documents.length} documents
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button className="text-indigo-600 hover:text-indigo-900">
-                          View
-                        </button>
+                        <button className="text-indigo-600 hover:text-indigo-900">View</button>
                       </td>
                     </tr>
                   ))}
@@ -535,7 +478,8 @@ const StudentDetails = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-lg shadow">
+            className="bg-white rounded-lg shadow"
+          >
             <div className="px-6 py-4 border-b border-gray-200">
               <h3 className="text-lg font-medium text-gray-900">Documents</h3>
             </div>
@@ -601,11 +545,10 @@ const StudentDetails = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-lg shadow">
+            className="bg-white rounded-lg shadow"
+          >
             <div className="px-6 py-4 border-b border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900">
-                Payment History
-              </h3>
+              <h3 className="text-lg font-medium text-gray-900">Payment History</h3>
             </div>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
